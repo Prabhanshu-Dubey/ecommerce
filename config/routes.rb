@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     end
   end
   resources :brands
-  resources :brands
-  resources :stores
   resources :coupons
   resources :merchants do
     member do
@@ -14,6 +12,23 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
+
+
+  namespace :admin do
+    match "dashboard" => "dashboard#index", via: :get
+    resources :brands
+    resources :merchants do
+      member do
+        get 'coupons'
+      end
+    end
+    resources :coupons
+    resources :categories do
+      member do
+        get 'sub_categories'
+      end
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -68,6 +83,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  authenticated :user do
+    root to: "home#authenticated", as: "authenticated"    
+  end
 
   root to: "home#index"
 end
