@@ -1,0 +1,25 @@
+<%= form_for(@category, html: { class: "form-signup"}) do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control", required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :parent_id %><br>
+    <%= select_tag "category[parent_id]", options_for_select(Category.all.collect {|c| [c.name , c.id]}), :prompt => "Parent Category", class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary"%>
+  </div>
+<% end %>

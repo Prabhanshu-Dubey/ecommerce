@@ -1,0 +1,29 @@
+<%= form_for(@coupon) do |f| %>
+  <% if @coupon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+      <ul>
+      <% @coupon.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :merchant_id %><br>
+    <%= select_tag "coupon[merchant_id]", options_for_select(@merchants.collect {|m| [m.name , m.id]}) %>
+  </div>
+  <div class="actions">
+     <%= f.submit class:"btn btn-primary"%>
+  </div>
+<% end %>
