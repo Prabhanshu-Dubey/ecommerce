@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Logo</th>
       <th>Name</th>
       <th>Description</th>
       <th colspan="3"></th>
@@ -14,6 +15,13 @@
   <tbody>
     <% @brands.each do |brand| %>
       <tr>
+        <td>
+          <% if brand.logo.present? %>
+            <%= image_tag(brand.logo, style: "width: 40px; height: 40px;") %>
+          <% else %>
+            
+          <% end %>
+        </td>
         <td><%= brand.name %></td>
         <td><%= brand.description %></td>
         <td><%= link_to 'Show', admin_brand_path(brand) %></td>

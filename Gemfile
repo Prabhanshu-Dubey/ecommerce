@@ -45,3 +45,5 @@ end
 
 gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'devise', '~> 3.5.1'
+
+gem 'carrierwave'

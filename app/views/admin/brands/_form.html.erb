@@ -19,6 +19,27 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
+
+  <% if @brand.logo? %>
+    <div>
+      <%= image_tag(@brand.logo_url) %>
+      <label>
+        <%= f.check_box :remove_logo %>
+        Remove logo
+      </label>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.file_field :logo %>
+  </div>
+
+  <div>
+    <label>My logo URL:</label>
+    <%= f.text_field :remote_logo_url %>
+  </div>
+
   <div class="actions">
     <%= f.submit class:"btn btn-primary"%>
   </div>
