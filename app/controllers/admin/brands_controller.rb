@@ -4,7 +4,11 @@ class Admin::BrandsController < Admin::AdminController
   # GET /brands
   # GET /brands.json
   def index
-    @brands = Brand.all
+    if params[:name].present?
+      @brands = Brand.search(params[:name]) 
+    else
+      @brands = Brand.all
+    end  
   end
 
   # GET /brands/1
@@ -28,7 +32,7 @@ class Admin::BrandsController < Admin::AdminController
 
     respond_to do |format|
       if @brand.save
-        format.html { redirect_to [:admin, @brand], notice: 'Brand was successfully created.' }
+        format.html { redirect_to admin_brands_path, notice: 'Brand was successfully created.' }
         format.json { render :show, status: :created, location: @brand }
       else
         format.html { render :new }

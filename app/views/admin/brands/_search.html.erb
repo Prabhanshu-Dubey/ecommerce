@@ -1,0 +1,13 @@
+<%= form_for(admin_brands_path, remote: :true, method: :get, html: { id: "searchform", class: 'form-signup' }) do |f| %> 
+  <div class="field">
+    <%= text_field_tag :name, nil, id: "search", placeholder: "Search Brands i.e. Addidas, puma etc", class: "form-control"  %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#search").keyup(function() {
+      $("#searchform").submit();
+    });
+  });
+</script>
