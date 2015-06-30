@@ -1,0 +1,59 @@
+<h1>New Coupon</h1>
+
+<div class="btn btn-primary" data-toggle="modal" data-target="#auto_fill"> Auto Fill </div>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', coupons_path %>
+
+<div id="auto_fill" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Master Fill</h4>
+      </div>
+      <div class="modal-body"> </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="autofillForm()">Select</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+	function autofillForm () {
+		// var code = $('input[name=auto_fill_data]:checked').val();
+		// var auto_fill_row = $(".auto_fill_class[data-code='"+code+"']");
+
+		var auto_fill_row = $('input[name=auto_fill_data]:checked').parents(".auto_fill_class")
+		$("input[name='coupon[code]']").val(auto_fill_row.data('code'));
+		$("textarea[name='coupon[description]']").text(auto_fill_row.data('description'));
+
+		$("#auto_fill").modal('hide');
+	}
+
+	var auto_fill_array = [
+		{
+			'code' : 'hajskdh',
+			'description' : 'saldh alashdaslkd ashdalasdhas'
+		},
+		{
+			'code' : '7888asash',
+			'description' : 'saldh alashdaslkd ashdalasdhas'
+		}
+	]
+
+	var html = "";
+	for (var i = 0; i < auto_fill_array.length; i++) {
+		var data = auto_fill_array[i]
+		html += "<div class='row auto_fill_class' data-code='"+data.code+"' data-description='"+data.description+"'>"
+		html += "<div class='col-md-2'> <input type='radio' name='auto_fill_data' value='"+data.code+"'> </div>"
+		html += "<div class='col-md-4'> " + data.code + " </div>"
+		html += "<div class='col-md-6'> " + data.description + " </div>"
+		html += "</div>"
+	};
+
+	$("#auto_fill .modal-body").html(html);
+</script>
